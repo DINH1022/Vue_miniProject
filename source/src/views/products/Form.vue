@@ -10,19 +10,39 @@
                 <div class="form-group row">
                     <label for="inputPassword" class="col-sm-3 col-form-label">Product name</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" />
+                        <input type="text" 
+                        class="form-control" 
+                        v-model="product.name"
+                        v-bind:class="{'is-invalid':errors.name}" 
+                        @blur="validate()"
+                        />
+                        <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
                     </div>
+                    
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword" class="col-sm-3 col-form-label">Product price</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" />
+                        <div class="col-sm-9">
+                        <input type="text" 
+                        class="form-control" 
+                        v-model="product.price"
+                        v-bind:class="{'is-invalid':errors.price}" 
+                        @blur="validate()"
+                        />
+                        <div class="invalid-feedback" v-if="errors.price">{{ errors.price }}</div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword" class="col-sm-3 col-form-label">Product description</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea 
+                        class="form-control" 
+                        rows="3" 
+                        v-model="product.description"
+                        v-bind:class="{'is-invalid':errors.description}" 
+                        @blur="validate()"
+                        ></textarea>
+                        <div class="invalid-feedback" v-if="errors.description">{{ errors.description }}</div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -36,3 +56,60 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        name : 'ProductForm',
+        data() {
+            return {
+                errors:{
+                    name: '',
+                    price: '',
+                    description: ''
+                },
+                product: {
+                    name: '',
+                    price: '',
+                    description: ''
+                }
+            }
+        },
+        methods: {
+
+            validate() {
+                let isValid = true;
+
+                this.errors = {
+                    name: '',
+                    price: '',
+                    description: ''
+                };
+
+                if (this.product.name === '') {
+                    this.errors.name = 'Product name is required';
+                    isValid = false;
+                }
+
+                if (!this.product.price) {
+                    this.errors.price = 'Product price is required';
+                    isValid = false;
+                } else if (!this.isNumber(this.product.price)) {
+                    this.errors.price = 'Product price must be a number';
+                    isValid = false;
+                }
+
+                if (!this.product.description) {
+                    this.errors.description = 'Product description is required';
+                    isValid = false;
+                }
+                return isValid;
+            },
+            isNumber(value) {
+                return /^\d*$/.test(value);
+            },
+            save() {
+                console.log(this.validate());
+            }
+        }
+    }
+</script>
