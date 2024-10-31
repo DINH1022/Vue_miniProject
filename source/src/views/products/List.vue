@@ -23,7 +23,7 @@
                             <td>{{ product.price }}</td>
                             <td>
                                 <button class="btn btn-primary btn-small">Edit</button> &nbsp
-                                <button class="btn btn-danger btn-small">Delete</button>
+                                <button class="btn btn-danger btn-small" @click = "onDelete(product.id)">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -48,6 +48,30 @@ export default {
         getAll() {
             this.$request.get('http://localhost:8000/api/products').then(res => {
                 this.products = res.data
+            })
+        },
+        onDelete(productId){
+            this.$swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$request.delete(`http://localhost:8000/api/products/${productId}`).then(res => {
+                        if(res.data.success){
+                            this.getAll();
+                            this.$swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+                }
             })
         }
     }

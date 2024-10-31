@@ -1,12 +1,6 @@
 {
   "products": [
     {
-      "name": "Test product 3 (test edit)",
-      "price": "5000000",
-      "description": "product 3",
-      "id": "xWbk1Ck9-ba7uQZZiFxpL"
-    },
-    {
       "name": "5645645",
       "price": "645645",
       "description": "65466546",
@@ -19,28 +13,10 @@
       "id": "7A3folJnaRJJzsaHWAZ81"
     },
     {
-      "name": "Iphone 12",
-      "price": "25000000",
-      "description": "Thông tin chi tiết sản phẩm Iphone 12",
-      "id": "oPSzE11HGgfcH0LJ4aSfd"
-    },
-    {
-      "name": "s",
-      "price": "1",
-      "description": "1",
-      "id": "pLWSNUqoQHQW44a_Tp8Yb"
-    },
-    {
       "name": "a",
       "price": "1",
       "description": "a",
       "id": "4Zu5frzmXqaD4KER6gQLk"
-    },
-    {
-      "name": "1",
-      "price": "1",
-      "description": "1",
-      "id": "1kXGz0SS4IpeJFAX0yYeG"
     },
     {
       "name": "iphone 16",
