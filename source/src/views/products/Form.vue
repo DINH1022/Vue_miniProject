@@ -49,7 +49,7 @@
                     <label for="inputPassword" class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-9">
                         <button type="submit" class="btn btn-primary">Save</button> &nbsp;
-                        <button type="reset" class="btn btn-danger">Cancel</button>
+                        <button type="reset" class="btn btn-danger" @click ="cancel()">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -72,6 +72,12 @@
                     price: '',
                     description: ''
                 }
+            }
+        },
+        created(){
+            let productId = this.$route.params.id;
+            if(productId){
+                this.getProduct(productId);
             }
         },
         methods: {
@@ -109,6 +115,16 @@
             }, 
             save() {
                 if (this.validate()){
+                    if(this.product.id){
+                        this.$request.put(`http://localhost:8000/api/products/${this.product.id}`, this.product).then(res => {
+                            if(res.data.success){
+                                this.$router.push({name:'product.list'})
+                                return
+                            }
+                            alert('Update failed');
+                        })
+                        return
+                    }
                     this.$request.post('http://localhost:8000/api/products', this.product).then(res =>{
                         if(res.data.success){
                             this.$router.push({name:'product.list'})
@@ -117,6 +133,14 @@
                         alert('Save failed');
                     })
                 }
+            },
+            getProduct(id){
+                this.$request.get(`http://localhost:8000/api/products/${id}`).then(res => {
+                    this.product = res.data
+                })
+            },
+            cancel(){
+                this.$router.push({name:'product.list'})
             }
         }
     }
