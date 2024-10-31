@@ -106,9 +106,17 @@
             },
             isNumber(value) {
                 return /^\d*$/.test(value);
-            },
+            }, 
             save() {
-                console.log(this.validate());
+                if (this.validate()){
+                    this.$request.post('http://localhost:8000/api/products', this.product).then(res =>{
+                        if(res.data.success){
+                            this.$router.push({name:'product.list'})
+                            return
+                        }
+                        alert('Save failed');
+                    })
+                }
             }
         }
     }
